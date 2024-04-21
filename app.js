@@ -11,8 +11,7 @@ app.get( "/", (request, response) => {
     response.send("Hello World from Owais!");
 })
 
-const products = {
-        "books": [
+const products = [
           {
             "id": "1",
             "title": "1984",
@@ -40,13 +39,19 @@ const products = {
             "price": 9.99,
             "available": false
           }
-        ]
-}
+      ]
 
 app.get("/product",(request,response) => {
     response.send(products);
 })
 
+
+app.get("/product/:id",(request,response) => {
+  const singleProducts = products.find((products) => products.id === +request.params.id);
+  console.log("single products",singleProducts);
+  response.send(singleProducts);
+  console.log(request.params.id);
+})
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`)
